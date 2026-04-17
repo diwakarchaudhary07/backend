@@ -5,6 +5,6 @@ from .models import *
 def home(request):
    return HttpResponse("Hello, Django!")
 
-def category_products(request):
-    categories = Category.objects.prefetch_related('products').all()
-    return render(request, 'category_products.html', {'categories': categories})
+def show_products(request):
+    products = Product.objects.all()
+    return render(request, 'products.html', {'products': products})

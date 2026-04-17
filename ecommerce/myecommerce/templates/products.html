@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+    <style>
+        .product-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 200px;
+            vertical-align: top;
+        }
+        img { width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+
+    <h2>Our Inventory</h2>
+
+    {% for item in items %}
+    <div class="product-box">
+        <img src="{{ item.product_image.url }}" alt="{{ item.product_name }}">
+        
+        <h3>{{ item.product_name }}</h3>
+        <p><strong>Price:</strong> ${{ item.product_price }}</p>
+        <p>{{ item.product_description }}</p>
+    </div>
+    {% endfor %}
+
+</body>
+</html>
