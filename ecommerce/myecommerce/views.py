@@ -6,12 +6,9 @@ from .models import Product
 def home(request):
    return HttpResponse("Hello, Django!")
 
-
 def show_products(request):
-    products = Product.objects.all()   
-    return render(request, 'products.html', {"products:products"})
-
-
+    products = Product.objects.all()
+    return render(request, 'products.html', {'products': products})
 
 
 
