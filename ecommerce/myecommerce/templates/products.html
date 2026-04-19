@@ -113,7 +113,68 @@
 
 <body>
 
-<div class="header">🛍️ My Store</div>
+
+        {% for product in products %}
+                <img src="{{ product.product_image.url }}">
+                <div class="title">{{ product.product_name }}</div>
+                <div class="price">₹{{ product.product_price }}</div>
+                <div class="desc">{{ product.product_description }}</div>
+            </div>
+        {% endfor %}
+</div>
+```
+
+</div>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <div class="header">🛍️ My Store</div>
 
 <!-- CATEGORY LIST -->
 
@@ -126,24 +187,19 @@
 
 <div class="container">
 
-```
-<div class="product-container">
-    {% for category, items in grouped_products.items %}
-        {% for product in items %}
-            <div class="product-box" data-category="{{ category }}">
-                <img src="{{ product.product_image.url }}">
-                <div class="title">{{ product.product_name }}</div>
-                <div class="price">₹{{ product.product_price }}</div>
-                <div class="desc">{{ product.product_description }}</div>
-            </div>
-        {% endfor %}
-    {% endfor %}
-</div>
-```
+``` {% endcomment %}
 
-</div>
 
-<script>
+
+
+
+
+
+
+
+
+
+{% comment %} <script>
 function filterProducts(category) {
     let products = document.querySelectorAll('.product-box');
     let buttons = document.querySelectorAll('.category-bar li');
@@ -158,8 +214,5 @@ function filterProducts(category) {
             p.style.display = 'none';
         }
     });
-}
-</script>
-
-</body>
-</html>
+} {% endcomment %}
+{% comment %} </script> {% endcomment %}
