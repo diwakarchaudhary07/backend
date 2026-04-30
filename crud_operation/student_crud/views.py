@@ -9,36 +9,43 @@ def student_info(request):
     return render(request, 'other.html', {'students': students})
 
 
-# ✅ CREATE
-# def add_student(request):
-#     if request.method == "POST":
-#         form = StudentForm(request.POST, request.FILES)  # 🔥 important
-#         if form.is_valid():
-#             form.save()
-#             return redirect('student_list')
-#     else:
-#         form = StudentForm()
 
-#     return render(request, 'student_form.html', {'form': form})
+def add_student(request):
+    if request.method == 'POST':
+        Student.objects.create(
+            std_name=request.POST['name'],
+            std_roll=request.POST['roll'],
+            std_image=request.FILES['image'],
+            std_email=request.POST['email'],
+            std_city=request.POST['city']
+        )
+        return redirect('student_info')
+    return render(request, 'add.html')
 
-
-# # ✅ UPDATE
-# def edit_student(request, id):
-#     student = get_object_or_404(Student, id=id)
-
-#     if request.method == "POST":
-#         form = StudentForm(request.POST, request.FILES, instance=student)  # 🔥 important
-#         if form.is_valid():
-#             form.save()
-#             return redirect('student_list')
-#     else:
-#         form = StudentForm(instance=student)
-
-#     return render(request, 'student_form.html', {'form': form})
+def delete_student(request, id):
+    data = Student.objects.get(id=id)
+    data.delete()
+    return redirect('student_info')
 
 
-# # ✅ DELETE
-# def delete_student(request, id):
-#     student = get_object_or_404(Student, id=id)
-#     student.delete()
-#     return redirect('student_list')
+# # Update Data
+def edit_student(request, id):
+    data = Student.objects.get(id=id)
+
+
+    if request.method == 'POST':
+        data.std_name = request.POST['name']
+        data.std_roll = request.POST['roll']
+        data.std_email = request.POST['email']
+        data.std_city = request.POST['city']
+
+
+        if request.FILES.get('image'):
+            data.std_image = request.FILES['image']
+
+
+        data.save()
+        return redirect('student_info')
+
+
+    return render(request, 'edit.html', {'data': data})

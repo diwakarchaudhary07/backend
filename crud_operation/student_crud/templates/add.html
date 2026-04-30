@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+</head>
+<body>
+
+<h2>Add Student</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Roll:</label><br>
+    <input type="number" name="roll" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>City:</label><br>
+    <input type="text" name="city" required><br><br>
+
+    <label>Image:</label><br>
+    <input type="file" name="image" required><br><br>
+
+    <button type="submit">Add Student</button>
+
+</form>
+
+</body>
+</html> 
