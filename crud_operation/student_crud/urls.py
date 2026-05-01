@@ -1,11 +1,10 @@
 from django.contrib import admin
 from django.urls import path  
-from .views import student_info , add_student
-
+from .views import *
 
 urlpatterns = [
-    path('students/', student_info, name='student_info'),
-    path('add/', add_student, name='add_student'),
-    # path('edit/<int:id>/', edit_student, name='edit_student'),
-    # path('delete/<int:id>/', delete_student, name='delete_student'),
+    path('', student_list, name='student_list'),
+    path('create/', student_create, name='student_create'),
+    path('update/<int:id>/', student_update, name='student_update'),
+    path('delete/<int:id>/', student_delete, name='student_delete'),
 ]

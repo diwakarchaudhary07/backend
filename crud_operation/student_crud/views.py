@@ -2,50 +2,32 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Student
 from .forms import StudentForm
 
-
-# ✅ READ (List)
-def student_info(request):
+# READ (LIST)
+def student_list(request):
     students = Student.objects.all()
-    return render(request, 'other.html', {'students': students})
+    return render(request, 'student_list.html', {'students': students})
 
+# CREATE
+def student_create(request):
+    form = StudentForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('student_list')
+    return render(request, 'student_form.html', {'form': form})
 
+# UPDATE
+def student_update(request, id):
+    student = get_object_or_404(Student, id=id)
+    form = StudentForm(request.POST or None, request.FILES or None, instance=student)
+    if form.is_valid():
+        form.save()
+        return redirect('student_list')
+    return render(request, 'student_form.html', {'form': form})
 
-def add_student(request):
+# DELETE
+def student_delete(request, id):
+    student = get_object_or_404(Student, id=id)
     if request.method == 'POST':
-        Student.objects.create(
-            std_name=request.POST['name'],
-            std_roll=request.POST['roll'],
-            std_image=request.FILES['image'],
-            std_email=request.POST['email'],
-            std_city=request.POST['city']
-        )
-        return redirect('student_info')
-    return render(request, 'add.html')
-
-def delete_student(request, id):
-    data = Student.objects.get(id=id)
-    data.delete()
-    return redirect('student_info')
-
-
-# # Update Data
-def edit_student(request, id):
-    data = Student.objects.get(id=id)
-
-
-    if request.method == 'POST':
-        data.std_name = request.POST['name']
-        data.std_roll = request.POST['roll']
-        data.std_email = request.POST['email']
-        data.std_city = request.POST['city']
-
-
-        if request.FILES.get('image'):
-            data.std_image = request.FILES['image']
-
-
-        data.save()
-        return redirect('student_info')
-
-
-    return render(request, 'edit.html', {'data': data})
+        student.delete()
+        return redirect('student_list')
+    return render(request, 'student_delete.html', {'student': student})
